@@ -1,0 +1,16 @@
+save_dir: ???
+audio_files: ???
+classes: ???
+target_name: label # if multiclass, this is the target column name
+
+# default args
+default_classes: ["multiple classes","uncertain","noise"] # include these default columns as buttons when the user is labeling
+objective_type: multiclass # optional multiclass or multilabel. If multiclass, only one label can be selected
+sample_weights: null # a path to a file that contains a sample weight to get the proportion that this sample should appear next. This is useful for active learning.
+
+
+
+# Gradio args
+share: false
+deploy: false
+

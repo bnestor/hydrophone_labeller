@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hydrophone-labeller"
+version="0.1.0"
+description = "A CLI tool for labelling hydrophone data"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+    { name="Bret Nestor", email="bnestor@github.com" }
+]
+
+# Dependencies
+dependencies = [
+    "hydra-core",
+    "gradio",
+    "torch", # cpu version
+    "torchaudio",
+]
+
+# Entry points to expose command-line interfaces
+[project.scripts]
+hydrophone-labeller = "hydrophone_labeller.cli:main"
+
+[tool.setuptools]
+packages = ["hydrophone_labeller"]
+package-dir = {"" = "src"}
+include-package-data = true
+
+[tool.setuptools.package-data]
+"hydrophone_downloader" = ["configs/*.yaml"]
+
+[tool.hydra]
+default_config_dir = "src/configs"
+
+
+[tool.hydra.run]
+config_file = "config.yaml"
