@@ -13,18 +13,27 @@ from hydrophone_labeller.labeller import label_data
 
 @hydra.main(config_path="../configs", config_name="config")
 def main(cfg: DictConfig):
+    """
+    A command line tool that allows users to label hydrophone data.
 
-    # for k,v in cfg.items():
-    #     print(k)
-    #     if isinstance(v, listconfig.ListConfig):
-    #         cfg.update({k: list(v)})
-    #     else:
-    #         print(type(v))
-
-
-
-
-
+    Args:
+        classes (list): **required**. A list of classes that the user can label the data with.
+        audio_files (str or list): **required**. The directory where the audio files are stored.
+        save_dir (str): **required**. The directory where the labeled data will be saved.
+        instructions (str): **required**. Instructions for the user.
+        default_classes (list, optional): Default is ["multiple classes", "uncertain", "noise"]. 
+            The default classes that the user can select from.
+        objective_type (str, optional): Default is "multi-class". 
+            The type of machine learning task. Options include "multi-class".
+        sample_weights (str or None, optional): Default is None. 
+            Path to a CSV containing columns "filename" and "sample weight".
+        share (bool, optional): Default is False. 
+            Whether to create a public sharable link for Gradio.
+        deploy (bool, optional): Default is False. 
+            Whether to deploy the labeller as a Gradio app.
+        title (str, optional): Default is "hydrophone_labeller". 
+            The title of the Gradio app.
+    """
 
 
     
@@ -127,6 +136,10 @@ def compile_json(cfg: DictConfig):
     """
     For example:
     hydrophone-labeller-compile-labels --save_dir=outputs/label_outputs
+
+    Args:
+        save_dir (str): **required**. The directory where the labeled data will be saved.
+
     """
     import json
     import glob

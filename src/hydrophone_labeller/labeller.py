@@ -156,6 +156,7 @@ def label_data(classes, audio_files, save_dir, instructions, default_classes=["m
     with gr.Blocks() as block:
         # Initial screen for user ID
         with gr.Row(visible=True) as start_interface:
+            intro_text = gr.Markdown(instructions)
             user_id_input = gr.Textbox(label="Enter User ID. This value will be hashed for privacy. This ensures that we can attribute the source of labels.", placeholder="User ID")
             start_button = gr.Button("Start Labeling")
         
