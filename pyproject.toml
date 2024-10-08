@@ -19,19 +19,19 @@ dependencies = [
     "gradio",
     "torch", # cpu version
     "torchaudio",
+    "polars",
 ]
 
 # Entry points to expose command-line interfaces
 [project.scripts]
 hydrophone-labeller = "hydrophone_labeller.cli:main"
+hydrophone-labeller-compile-labels = "hydrophone_labeller.cli:compile_json"
 
 [tool.setuptools]
 packages = ["hydrophone_labeller"]
 package-dir = {"" = "src"}
 include-package-data = true
 
-[tool.setuptools.package-data]
-"hydrophone_downloader" = ["configs/*.yaml"]
 
 [tool.hydra]
 default_config_dir = "src/configs"

@@ -15,7 +15,6 @@ import hashlib
 import json
 from datetime import datetime
 
-from omegaconf import listconfig
 
 
 # Utility function to create a hash from the user ID
@@ -102,7 +101,7 @@ def start_labelling(user_id, classes, audio_files, save_dir):
 #     return submit_label(user_hash, file_name, label, save_dir)
 
 # Build the Gradio interface
-def label_data(classes, audio_files, save_dir, default_classes=["multiple classes","uncertain","noise"], objective_type="multiclass", sample_weights=None,  share=False, deploy=False):
+def label_data(classes, audio_files, save_dir, instructions, default_classes=["multiple classes","uncertain","noise"], objective_type="multiclass", sample_weights=None,  share=False, deploy=False):
     """
     behaviour: upon entering a unique name,
     search through all instances of *_userhash.json and remove these from the list
@@ -110,7 +109,7 @@ def label_data(classes, audio_files, save_dir, default_classes=["multiple classe
 
     Inputs:
         classes: list of str, classes to be labelled
-        audio_files: str, list, or omegaconf.listconfig specifying path to audio files
+        audio_files: str, list, specifying path to audio files
         save_dir: str, path to directory to save labelled data
         include_columns: list of str, columns to include in the classes by default
         objective_type: str, type of objective (e.g. multiclass, multilabel)
@@ -132,7 +131,7 @@ def label_data(classes, audio_files, save_dir, default_classes=["multiple classe
         else:
             assert os.path.isfile(audio_files), print(audio_files, 'does not exist')
             filenames = [audio_files]
-    elif isinstance(audio_files, list) or isinstance(audio_files, listconfig.ListConfig):
+    elif isinstance(audio_files, list): # or isinstance(audio_files, listconfig.ListConfig):
         filenames=[]
         for f in audio_files:
             if '*' in f:
@@ -229,8 +228,23 @@ def label_data(classes, audio_files, save_dir, default_classes=["multiple classe
 
 
 if __name__=="__main__":
-    classes = ["Class 1", "Class 2", "Class 3", "Class 4", "Class 5", "Class 6", "Class 7"]
-    audio_file = "path_to_audio_file.wav"
-    save_dir = "path_to_save_directory"
-    label_data(classes, audio_file, save_dir)
+    # if it is deployed, we should have exported the args to yaml.
+    # yaml args will be read here to feed to the model
+    import json
+
+    with open('deploy_config.json','r') as f:
+        deploy_cfg = json.load(f)
+
+    
+
+
+    label_data(
+        classes = deploy_cfg['classes'],
+        audio_files = deploy_cfg['audio_files'], 
+        save_dir = deploy_cfg['save_dir'],
+        instructions = deploy_cfg['instructions'],
+        default_classes = deploy_cfg['default_classes'],
+        objective_type = deploy_cfg['objective_type'],
+        sample_weights = deploy_cfg['sample_weights'],
+    )
 

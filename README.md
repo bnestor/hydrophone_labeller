@@ -23,7 +23,12 @@ hydrophone-labeller-prepare-data audio_files=<path/to/audio/files/*.flac> proces
 The second core functionality is providing code to dynamically create a gradio app. This app can be shared with users with the link provided or deployed to huggingface.
 
 ```
-hydrophone-labeller hydrophone-labeller save_dir=</path/to/save/labels/to/> audio_files=</path/to/processed/outputs/*.mp3> classes=["orca","humpback","pacific white sided dolphin","sperm whale","sea lion"]
+hydrophone-labeller hydrophone-labeller save_dir=</path/to/save/labels/to/> audio_files=</path/to/processed/outputs/*.mp3> classes=["orca","humpback","pacific white sided dolphin","sperm whale","sea lion"] instructions="label the species found in the file" 
+```
+
+To compile results into a csv you may run:
+```
+hydrophone-labeller-compile-labels save_dir=</path/to/save/labels/to/>
 ```
 
 ### Example 1: labelling for presence or absence of a marine mammals.
@@ -54,7 +59,7 @@ Now, `/home/user/drive1/files_to_label/` should have the following contents:
 
 We are ready to label. We can create a link to an app running on our local machine using the following command:
 ```
-hydrophone-labeller hydrophone-labeller save_dir=/home/user/drive1/files_to_label/user_labels audio_files=/home/user/drive1/files_to_label/*.mp3 classes=["absent","present"]
+hydrophone-labeller hydrophone-labeller save_dir=/home/user/drive1/files_to_label/user_labels audio_files=/home/user/drive1/files_to_label/*.mp3 classes=["absent","present"] instructions="Label 'present' if a marine mammal is detected in the clip, otherwise label it 'absent'" 
 ```
 
 this will return a link such as `http://127.0.0.1:7860/`. Following that link, you will see a webpage prompting a user_id. Enter a user ID that you can remember if you return to the application (such as <firstname>_<lastinitial>). This is to ensure the user does not label the same data again on revisits.
@@ -68,7 +73,7 @@ Upon clicking "start labelling" the first example will be shown
 You will notice, that for this binary problem, there are some extra classes that are added by default. In particular, it does not make sense to have the `noise` and `multiple classes` buttons. We can override these defaults by passing a list of the default buttons. In your terminal, run `ctrl+c` to kill the session then launch it as follows:
 
 ```
-hydrophone-labeller hydrophone-labeller save_dir=/home/user/drive1/files_to_label/user_labels audio_files=/home/user/drive1/files_to_label/*.mp3 classes=["absent","present"] default_classes=["uncertain"]
+hydrophone-labeller hydrophone-labeller save_dir=/home/user/drive1/files_to_label/user_labels audio_files=/home/user/drive1/files_to_label/*.mp3 classes=["absent","present"] default_classes=["uncertain"] instructions="Label 'present' if a marine mammal is detected in the clip, otherwise label it 'absent'" 
 ```
 
 Upon reopening the browser, following the link, and  providing a user_id, you will see something like the following:
@@ -78,8 +83,14 @@ Upon reopening the browser, following the link, and  providing a user_id, you wi
 If you would like to share the app with your collaborators so that they can help you label, you may create a temporary link by providing the `share=true` argument:
 
 ```
-hydrophone-labeller hydrophone-labeller save_dir=/home/user/drive1/files_to_label/user_labels audio_files=/home/user/drive1/files_to_label/*.mp3 classes=["absent","present"] default_classes=["uncertain"] share=true
+hydrophone-labeller hydrophone-labeller save_dir=/home/user/drive1/files_to_label/user_labels audio_files=/home/user/drive1/files_to_label/*.mp3 classes=["absent","present"] default_classes=["uncertain"] instructions="Label 'present' if a marine mammal is detected in the clip, otherwise label it 'absent'"  share=true
 ```
+
+
+
+## Coming soon
+- Deploy to a huggingface space
+- Compile results into a csv
 
 
 
