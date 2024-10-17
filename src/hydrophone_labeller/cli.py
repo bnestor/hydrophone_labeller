@@ -11,7 +11,12 @@ from copy import deepcopy
 from hydrophone_labeller.labeller import label_data
 
 
-@hydra.main(config_path="../configs", config_name="config")
+
+LOCAL_PATH = os.path.abspath(__file__)
+print(LOCAL_PATH)
+
+
+@hydra.main(config_path="../configs", config_name="config", version_base="1.1")
 def main(cfg: DictConfig):
     """
     A command line tool that allows users to label hydrophone data.
@@ -131,7 +136,7 @@ def main(cfg: DictConfig):
 
 
 
-@hydra.main(config_path="../configs", config_name="config")
+@hydra.main(config_path="../configs", config_name="config", version_base="1.1")
 def compile_json(cfg: DictConfig):
     """
     For example:
@@ -186,7 +191,7 @@ def compile_json(cfg: DictConfig):
     print(f"There are {len(new_df)} labels covering {len(new_df.select('filename').unique())} files")
 
 
-@hydra.main(config_path="../configs", config_name="config")
+@hydra.main(config_path="../configs", config_name="config", version_base="1.1")
 def prepare_data(cfg: DictConfig):
     """
     Example:
@@ -199,12 +204,14 @@ def prepare_data(cfg: DictConfig):
         start_segments (str, optional): A csv with the filename and the start time for each clip. If this is not provided, the first 15 seconds are used
         processed_outputs (str): **required**. The directory where the processed audio files will be saved
     """
-    from dataset_preparation import prepare_data
+    from hydrophone_labeller.dataset_preparation import prepare_data
+
+
 
     prepare_data(
         audio_files = cfg.audio_files,
         start_segments = cfg.start_segments,
-        processed_outputs = cfg.processed_outputs
+        processed_outputs = cfg.save_dir,
     )
 
 

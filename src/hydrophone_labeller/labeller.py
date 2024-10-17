@@ -145,11 +145,23 @@ def label_data(classes, audio_files, save_dir, instructions, default_classes=["m
 
     assert len(audio_files) > 0, print('No audio files found')
 
-    spec_audio_gen = image_audio_generator(audio_files)
+    # spec_audio_gen = image_audio_generator(audio_files)
 
-    def start():
-        filename, spectrogram, image = next(spec_audio_gen)
-        return filename, spectrogram, image
+    # def start():
+    #     filename, spectrogram, image = next(spec_audio_gen)
+    #     return filename, spectrogram, image
+
+
+    # if sample_weights is not None then sort the audio files by the sample weights
+    if sample_weights is not None:
+        import csv
+        with open(sample_weights, 'r') as f:
+            reader = csv.reader(f)
+            sample_weights = {row[0]:float(row[1]) for row in reader}
+
+        sample_weights = {os.path.basename(k):v for k,v in sample_weights.items()}
+        # descending
+        audio_files = sorted(audio_files, key=lambda x: sample_weights.get(os.path.basename(x), 0), reverse=True)
     
     
     

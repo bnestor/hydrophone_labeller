@@ -26,15 +26,22 @@ dependencies = [
 [project.scripts]
 hydrophone-labeller = "hydrophone_labeller.cli:main"
 hydrophone-labeller-compile-labels = "hydrophone_labeller.cli:compile_json"
+hydrophone-labeller-prepare-data = "hydrophone_labeller.cli:prepare_data"
 
 [tool.setuptools]
 packages = ["hydrophone_labeller"]
 package-dir = {"" = "src"}
 include-package-data = true
 
+[tool.setuptools.package-data]
+"hydrophone_labeller" = ["configs/*.yaml"]
+
 
 [tool.hydra]
 default_config_dir = "src/configs"
+
+[tool.hydra.defaults]
+configs = ["config.yaml", "token_config.yaml"]
 
 
 [tool.hydra.run]

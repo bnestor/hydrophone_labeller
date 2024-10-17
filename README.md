@@ -23,7 +23,7 @@ hydrophone-labeller-prepare-data audio_files=<path/to/audio/files/*.flac> proces
 The second core functionality is providing code to dynamically create a gradio app. This app can be shared with users with the link provided or deployed to huggingface.
 
 ```
-hydrophone-labeller hydrophone-labeller save_dir=</path/to/save/labels/to/> audio_files=</path/to/processed/outputs/*.mp3> classes=["orca","humpback","pacific white sided dolphin","sperm whale","sea lion"] instructions="label the species found in the file" 
+hydrophone-labeller save_dir=</path/to/save/labels/to/> audio_files=</path/to/processed/outputs/*.mp3> classes=["orca","humpback","pacific white sided dolphin","sperm whale","sea lion"] instructions="label the species found in the file" 
 ```
 
 To compile results into a csv you may run:
@@ -59,7 +59,7 @@ Now, `/home/user/drive1/files_to_label/` should have the following contents:
 
 We are ready to label. We can create a link to an app running on our local machine using the following command:
 ```
-hydrophone-labeller hydrophone-labeller save_dir=/home/user/drive1/files_to_label/user_labels audio_files=/home/user/drive1/files_to_label/*.mp3 classes=["absent","present"] instructions="Label 'present' if a marine mammal is detected in the clip, otherwise label it 'absent'" 
+hydrophone-labeller save_dir=/home/user/drive1/files_to_label/user_labels audio_files=/home/user/drive1/files_to_label/*.mp3 classes=["absent","present"] instructions="Label 'present' if a marine mammal is detected in the clip, otherwise label it 'absent'" 
 ```
 
 this will return a link such as `http://127.0.0.1:7860/`. Following that link, you will see a webpage prompting a user_id. Enter a user ID that you can remember if you return to the application (such as <firstname>_<lastinitial>). This is to ensure the user does not label the same data again on revisits.
