@@ -73,7 +73,7 @@ Upon clicking "start labelling" the first example will be shown
 You will notice, that for this binary problem, there are some extra classes that are added by default. In particular, it does not make sense to have the `noise` and `multiple classes` buttons. We can override these defaults by passing a list of the default buttons. In your terminal, run `ctrl+c` to kill the session then launch it as follows:
 
 ```
-hydrophone-labeller hydrophone-labeller save_dir=/home/user/drive1/files_to_label/user_labels audio_files=/home/user/drive1/files_to_label/*.mp3 classes=["absent","present"] default_classes=["uncertain"] instructions="Label 'present' if a marine mammal is detected in the clip, otherwise label it 'absent'" 
+hydrophone-labeller save_dir=/home/user/drive1/files_to_label/user_labels audio_files=/home/user/drive1/files_to_label/*.mp3 classes=["absent","present"] default_classes=["uncertain"] instructions="Label 'present' if a marine mammal is detected in the clip, otherwise label it 'absent'" 
 ```
 
 Upon reopening the browser, following the link, and  providing a user_id, you will see something like the following:
@@ -83,7 +83,7 @@ Upon reopening the browser, following the link, and  providing a user_id, you wi
 If you would like to share the app with your collaborators so that they can help you label, you may create a temporary link by providing the `share=true` argument:
 
 ```
-hydrophone-labeller hydrophone-labeller save_dir=/home/user/drive1/files_to_label/user_labels audio_files=/home/user/drive1/files_to_label/*.mp3 classes=["absent","present"] default_classes=["uncertain"] instructions="Label 'present' if a marine mammal is detected in the clip, otherwise label it 'absent'"  share=true
+hydrophone-labeller save_dir=/home/user/drive1/files_to_label/user_labels audio_files=/home/user/drive1/files_to_label/*.mp3 classes=["absent","present"] default_classes=["uncertain"] instructions="Label 'present' if a marine mammal is detected in the clip, otherwise label it 'absent'"  share=true
 ```
 
 

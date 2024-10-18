@@ -173,7 +173,7 @@ def compile_json(cfg: DictConfig):
 
     new_df = pl.DataFrame(outputs)
 
-    if not(os.path.exists(os.path.join(cfg.save_dir, 'labelled_data.csv'))):
+    if os.path.exists(os.path.join(cfg.save_dir, 'labelled_data.csv')):
         # create a csv file with the headers
         df = pl.read_csv(os.path.join(cfg.save_dir, 'labelled_data.csv'))
 

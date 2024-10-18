@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import os
 import glob
 import warnings
+# from copy import deepcopy
 
 
 
@@ -76,7 +77,7 @@ class FileDataset(torch.utils.data.Dataset):
             else:
                 data = data.view(2, -1)
 
-        # data_orig = copy(data)
+        # data_orig = deepcopy(data)
 
 
         if self.receptive_field is not None:
@@ -136,6 +137,10 @@ class FileDataset(torch.utils.data.Dataset):
         else:
             data = data.squeeze(-1).expand(-1,3,-1,-1)
         # print('3',data.shape)
+
+
+
+
 
        
         packet = {'data': data.float(),
@@ -199,10 +204,11 @@ def prepare_data(audio_files,  processed_outputs, start_segments=None, start_tim
             audio_files_with_start_time.append((filename, start_segments[os.path.basename(filename)]))
         else:
             audio_files_with_start_time.append((filename, 0))
-    
+
+        
     dataset = FileDataset(audio_files_with_start_time, processed_outputs)
 
-    dataloader = torch.utils.data.DataLoader(dataset, batch_size=1, shuffle=False, num_workers=0)
+    dataloader = torch.utils.data.DataLoader(dataset, batch_size=1, shuffle=False, num_workers=3)
 
     for batch in dataloader:
 
@@ -274,6 +280,9 @@ def prepare_data(audio_files,  processed_outputs, start_segments=None, start_tim
 
 
         output_name =  os.path.join(processed_outputs, os.path.basename(filenames[item]).replace('.flac',f'_{int(start_time)}.mp3').replace('.wav',f'_{int(start_time)}.mp3'))
+
+        if os.path.exists(output_name):
+            continue
 
 
         # os.system(f'ffmpeg -ss {int(start_time)} -y -i {filenames[item]} -t 15 -af "volume={gain}dB" {output_name}')
