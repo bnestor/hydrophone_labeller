@@ -158,7 +158,8 @@ def label_data(classes, audio_files, save_dir, instructions, default_classes=["m
         import csv
         with open(sample_weights, 'r') as f:
             reader = csv.reader(f)
-            sample_weights = {row[0]:float(row[1]) for row in reader[1:]}
+            sample_weights = {row[0]:row[1] for row in reader}
+        sample_weights = {k:float(v) for k,v in sample_weights.items() if v.isnumeric()}
 
         sample_weights = {os.path.basename(k):v for k,v in sample_weights.items()}
         # descending
