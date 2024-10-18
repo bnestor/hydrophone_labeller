@@ -20,6 +20,7 @@ dependencies = [
     "torch", # cpu version
     "torchaudio",
     "polars",
+    "matplotlib",
 ]
 
 # Entry points to expose command-line interfaces
@@ -41,8 +42,8 @@ include-package-data = true
 default_config_dir = "src/configs"
 
 [tool.hydra.defaults]
-configs = ["config.yaml", "token_config.yaml"]
+configs = ["labeller_config.yaml"]
 
 
 [tool.hydra.run]
-config_file = "config.yaml"
+config_file = "labeller_config.yaml"

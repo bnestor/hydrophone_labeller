@@ -14,9 +14,10 @@ from hydrophone_labeller.labeller import label_data
 
 LOCAL_PATH = os.path.abspath(__file__)
 print(LOCAL_PATH)
+CONFIG_PATH = os.path.join(os.path.dirname(os.path.dirname(LOCAL_PATH)), 'configs')
 
 
-@hydra.main(config_path="../configs", config_name="config", version_base="1.1")
+@hydra.main(config_path=CONFIG_PATH, config_name="labeller_config", version_base="1.1")
 def main(cfg: DictConfig):
     """
     A command line tool that allows users to label hydrophone data.
@@ -136,7 +137,7 @@ def main(cfg: DictConfig):
 
 
 
-@hydra.main(config_path="../configs", config_name="config", version_base="1.1")
+@hydra.main(config_path=CONFIG_PATH, config_name="labeller_config", version_base="1.1")
 def compile_json(cfg: DictConfig):
     """
     For example:
@@ -191,7 +192,7 @@ def compile_json(cfg: DictConfig):
     print(f"There are {len(new_df)} labels covering {len(new_df.select('filename').unique())} files")
 
 
-@hydra.main(config_path="../configs", config_name="config", version_base="1.1")
+@hydra.main(config_path=CONFIG_PATH, config_name="labeller_config", version_base="1.1")
 def prepare_data(cfg: DictConfig):
     """
     Example:
