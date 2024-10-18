@@ -30,6 +30,7 @@ def save_label_data(save_dir, filename, user_hash, label, generator):
         'date_labelled': date_labelled,
         'label': label
     }
+    os.makedirs(save_dir, exist_ok=True)
     file_path = os.path.join(save_dir, f"{os.path.basename(filename).replace('.mp3','').replace('.flac','').replace('.wav','')}_{user_hash}.json")
     if not(os.path.exists(file_path)):
         with open(file_path, 'w+') as f:
