@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import os
 import glob
 import warnings
+import time
 # from copy import deepcopy
 
 
@@ -28,7 +29,12 @@ class FileDataset(torch.utils.data.Dataset):
 
     def __getitem__(self, idx):
         filename, start_time = self.audio_files[idx]
-        data, sr = torchaudio.load(filename)
+        try:
+            data, sr = torchaudio.load(filename)
+        except:
+            time.sleep(1)
+            print('failed',filename)
+            data, sr = torchaudio.load(filename)
         data = torchaudio.functional.resample(data, sr, 32000)
 
         try:

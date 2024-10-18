@@ -247,6 +247,7 @@ if __name__=="__main__":
 
     with open('deploy_config.json','r') as f:
         deploy_cfg = json.load(f)
+    
 
     
 

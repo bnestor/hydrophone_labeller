@@ -21,6 +21,7 @@ dependencies = [
     "torchaudio",
     "polars",
     "matplotlib",
+    "PySoundFile",
 ]
 
 # Entry points to expose command-line interfaces

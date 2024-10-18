@@ -44,6 +44,16 @@ def main(cfg: DictConfig):
 
     
     if cfg.deploy:
+        # save the args to a json file in the save_dir
+        os.makedirs(cfg.save_dir, exist_ok=True)
+        with open(os.path.join(cfg.save_dir, 'deploy_config.json'), 'w+') as f:
+            OmegaConf.save(cfg, f)
+
+        # we also need to copy the labeller.py file to the save_dir
+        shutil.copy(os.path.join(os.path.dirname(__file__), 'labeller.py'), os.path.join(cfg.save_dir, 'labeller.py'))
+        
+        
+
         import huggingface_hub
         import shutil
         import json
