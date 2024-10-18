@@ -2,6 +2,10 @@
 A standalone command-line tool to label hydrophone data.
 
 ## Installation
+
+
+Some functions in this library rely upon ffmpeg. If you are using anaconda, you may install it by using `conda install conda-forge::ffmpeg` or by downloading and installing it from the [official website](https://www.ffmpeg.org/download.html).
+
 In an environment with python>=3.10 installed run:
 ```
 pip install git+https://github.com/bnestor/hydrophone_labeller.git
