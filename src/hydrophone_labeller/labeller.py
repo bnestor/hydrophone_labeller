@@ -122,6 +122,9 @@ def label_data(classes, audio_files, save_dir, instructions, default_classes=["m
     """
     assert objective_type=="multiclass", print('Only multiclass objective supported for now')
 
+    # add directory for gradio to expose
+    
+
     classes = sorted(list(set(classes)-set(default_classes)))+default_classes
 
 
@@ -145,6 +148,9 @@ def label_data(classes, audio_files, save_dir, instructions, default_classes=["m
     audio_files = filenames
 
     assert len(audio_files) > 0, print('No audio files found')
+
+    gr.set_static_paths(paths=audio_files+[f.replace(".mp3",".png") for f in audio_files])
+    
 
     # spec_audio_gen = image_audio_generator(audio_files)
 
@@ -232,7 +238,7 @@ def label_data(classes, audio_files, save_dir, instructions, default_classes=["m
         
 
     # block.queue()
-    block.launch(share=share, )   
+    block.launch(share=share, allowed_paths=[save_dir,])
     # app_interface = gr.Interface(
     #     fn=request_user_id,
     #     inputs=[user_id_input, gr.State(classes), gr.State(audio_files), gr.State(save_dir)],
