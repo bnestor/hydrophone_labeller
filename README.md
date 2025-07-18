@@ -21,7 +21,7 @@ pip install -e .
 
 There are two core functionalities of this package. The first is to create normalised audio segments in mp3 format, alongside png images of the spectrogram. This reduces redundant computation during labelling.
 ```
-hydrophone-labeller-prepare-data audio_files=<path/to/audio/files/*.flac> processed_outputs=</path/to/processed/flac>
+hydrophone-labeller-prepare-data audio_files=<path/to/audio/files/*.flac> save_dir=</path/to/processed/flac>
 ```
 
 The second core functionality is providing code to dynamically create a gradio app. This app can be shared with users with the link provided or deployed to huggingface.
