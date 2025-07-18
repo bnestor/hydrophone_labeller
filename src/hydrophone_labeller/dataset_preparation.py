@@ -206,7 +206,9 @@ def prepare_data(audio_files,  processed_outputs, start_segments=None, start_tim
 
     audio_files_with_start_time = []
     for filename in audio_files:
-        if os.path.basename(filename) in start_segments.keys():
+        if start_segments is None:
+            audio_files_with_start_time.append((filename, 0))
+        elif os.path.basename(filename) in start_segments.keys():
             audio_files_with_start_time.append((filename, start_segments[os.path.basename(filename)]))
         else:
             audio_files_with_start_time.append((filename, 0))
@@ -294,7 +296,9 @@ def prepare_data(audio_files,  processed_outputs, start_segments=None, start_tim
         # os.system(f'ffmpeg -ss {int(start_time)} -y -i {filenames[item]} -t 15 -af "volume={gain}dB" {output_name}')
         
         # command works but the library had an error
-        os.system(f'ffmpeg -ss {int(start_time)} -y -i {filenames[item]} -t 15 -af loudnorm {output_name}')
+        filename = filenames[item].replace(' ','\\ ')
+        output_name = output_name.replace(' ','\\ ')
+        os.system(f'ffmpeg -ss {int(start_time)} -y -i {filename} -t 15 -af loudnorm {output_name}')
 
         
 
